@@ -64,7 +64,7 @@
         </div>
       </article>
       <article class="card stage">
-        <canvas id="demo"></canvas>
+        <canvas id="demo"></canvas><div id="status" style="position:absolute;inset:0;display:grid;place-items:center;color:#a7b6d9;font:14px system-ui,sans-serif;pointer-events:none">Loading pigeon…</div>
         <div class="hud">
           <span class="badge">drag to orbit</span>
           <span class="badge">auto spin + bob</span>
@@ -108,7 +108,7 @@
     </div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.179.1/build/three.min.js"></script>
+  <script src="./vendor/three.min.js"></script>
   <script>
     function createEngine(canvas) {
       const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
@@ -251,6 +251,8 @@
       floor.rotation.x = -Math.PI / 2;
       floor.position.y = -1.42;
       engine.scene.add(floor);
+
+      document.getElementById('status')?.remove();
 
       engine.onTick((dt, t, targetRotation) => {
         pigeon.rotation.y += (targetRotation - pigeon.rotation.y) * Math.min(1, dt * 6);
